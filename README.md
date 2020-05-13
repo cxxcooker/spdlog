@@ -1,3 +1,8 @@
+# 简介
+因为日志采集需要单独拆分文件，所以在glog之外需要使用spdlog。
+
+这里修改源码，以支持特定的命名方式和小时翻转
+
 # spdlog
 
 Very fast, header-only/compiled, C++ logging library. [![Build Status](https://travis-ci.org/gabime/spdlog.svg?branch=v1.x)](https://travis-ci.org/gabime/spdlog)&nbsp; [![Build status](https://ci.appveyor.com/api/projects/status/d2jnxclg20vd0o50?svg=true)](https://ci.appveyor.com/project/gabime/spdlog) [![Release](https://img.shields.io/github/release/gabime/spdlog.svg)](https://github.com/gabime/spdlog/releases/latest)

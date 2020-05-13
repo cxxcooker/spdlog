@@ -32,7 +32,7 @@ struct daily_filename_calculator
         filename_t basename, ext;
         std::tie(basename, ext) = details::file_helper::split_by_extension(filename);
         return fmt::format(
-            SPDLOG_FILENAME_T("{}_{:04d}-{:02d}-{:02d}{}"), basename, now_tm.tm_year + 1900, now_tm.tm_mon + 1, now_tm.tm_mday, ext);
+            SPDLOG_FILENAME_T("{}{}.{:04d}{:02d}{:02d}{:02d}"), basename, ext, now_tm.tm_year + 1900, now_tm.tm_mon + 1, now_tm.tm_mday, now_tm.tm_hour);
     }
 };
 
@@ -119,7 +119,7 @@ private:
                 break;
             }
             filenames.emplace_back(filename);
-            now -= std::chrono::hours(24);
+            now -= std::chrono::hours(1);
         }
         for (auto iter = filenames.rbegin(); iter != filenames.rend(); ++iter)
         {
@@ -137,15 +137,15 @@ private:
     {
         auto now = log_clock::now();
         tm date = now_tm(now);
-        date.tm_hour = rotation_h_;
-        date.tm_min = rotation_m_;
+        date.tm_hour += 1;
+        date.tm_min = 0;
         date.tm_sec = 0;
         auto rotation_time = log_clock::from_time_t(std::mktime(&date));
         if (rotation_time > now)
         {
             return rotation_time;
         }
-        return {rotation_time + std::chrono::hours(24)};
+        return {rotation_time + std::chrono::hours(1)};
     }
 
     // Delete the file N rotations ago.

@@ -5,6 +5,7 @@
 // spdlog usage example
 
 #include <cstdio>
+#include <unistd.h>
 
 void load_levels_example();
 void stdout_logger_example();
@@ -121,7 +122,11 @@ void rotating_example()
 void daily_example()
 {
     // Create a daily logger - a new file is created every day on 2:30am.
-    auto daily_logger = spdlog::daily_logger_mt("daily_logger", "logs/daily.txt", 2, 30);
+    auto daily_logger = spdlog::daily_logger_mt("daily_logger", "logs/speech-nlu-np.log", 0, 0);
+    for(;;){
+        daily_logger->info("i logger!");
+        sleep(1);
+    }
 }
 
 #include "spdlog/cfg/env.h"
